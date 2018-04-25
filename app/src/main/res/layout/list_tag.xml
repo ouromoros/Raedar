@@ -7,14 +7,6 @@
     android:orientation="horizontal"
     android:layout_height="50dp">
 
-    <ImageButton
-        android:id="@+id/tagList"
-        android:layout_width="80dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:foregroundGravity="center_vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tagName"
@@ -25,8 +17,17 @@
         android:gravity="center_vertical"
         android:text="456465"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/tagList"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_goneMarginStart="10sp" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_goneMarginStart="80sp" />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/tagButton"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/ic_subject_black_24dp"
+        android:foregroundGravity="center_vertical"
+        android:layout_marginEnd="20sp"
+        />
 
 </android.support.constraint.ConstraintLayout>

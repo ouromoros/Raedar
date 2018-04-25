@@ -93,8 +93,8 @@ abstract class ListFragment : Fragment() {
             if (cview == null) {
                 cview = activity!!.layoutInflater.inflate(R.layout.list_item, null)
             }
-            cview!!.name.setText(cname)
-            cview.count.setText(count.toString())
+            cview!!.name.text = cname
+            cview.count.text = count.toString()
             return cview
         }
 
@@ -112,8 +112,26 @@ abstract class ListFragment : Fragment() {
             if (cview == null) {
                 cview = activity!!.layoutInflater.inflate(R.layout.list_tag, null)
             }
-            cview!!.findViewById<TextView>(R.id.tagName).setText(tag)
-            cview.findViewById<ImageButton>(R.id.tagList).isFocusable = false
+            cview!!.findViewById<TextView>(R.id.tagName).text = tag
+            val tb = cview.findViewById<ImageButton>(R.id.tagButton)
+            tb.isFocusable = false
+            tb.setOnClickListener {
+                val feedsDao = getFeedsDao(activity!!)
+                if (feedsDao == null) {
+                    Toast.makeText(activity, "Load database failed!", Toast.LENGTH_SHORT).show()
+                    Log.e("Main", "getFeedsDao return null!")
+                    // Cause it's a inline lambda, we have to use qualified return here
+                    return@setOnClickListener
+                }
+                feedsDao.getFeedsInTag(tag)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
+                            val intent = Intent(context, FeedListActivity::class.java)
+                            intent.putExtra("data", it.toTypedArray())
+                            startActivity(intent)
+                        }
+            }
             return cview
         }
 
