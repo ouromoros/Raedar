@@ -1,9 +1,12 @@
 package deng.jitian.raeder
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.AttributeSet
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import deng.jitian.raeder.database.Feed
 import deng.jitian.raeder.database.updateFeed
 import io.reactivex.Maybe
@@ -27,9 +30,6 @@ class FeedDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed_detail)
 
-        // Show the Up button in the action bar.
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
         // (e.g. when rotating the screen from portrait to landscape).
@@ -46,11 +46,12 @@ class FeedDetailActivity : AppCompatActivity() {
                 arguments = Bundle().apply {
                     feed = intent.getParcelableExtra<Feed>(FeedDetailFragment.ARG_ITEM_ID)
                     putParcelable(FeedDetailFragment.ARG_ITEM_ID, feed)
-                    // Set button as Starred
-                    if(feed.starred){
-                        star_button.setImageResource(R.drawable.ic_star_black_24dp)
-                    }
                 }
+            }
+
+            // Set button as Starred
+            if(feed.starred){
+                star_button.setImageResource(R.drawable.ic_star_black_24dp)
             }
 
             if(!feed.read){
@@ -84,19 +85,4 @@ class FeedDetailActivity : AppCompatActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) =
-            when (item.itemId) {
-                android.R.id.home -> {
-                    // This ID represents the Home or Up button. In the case of this
-                    // activity, the Up button is shown. For
-                    // more details, see the Navigation pattern on Android Design:
-                    //
-                    // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-
-                    // navigateUpTo(Intent(this, FeedListActivity::class.java))
-                    onBackPressed()
-                    true
-                }
-                else -> super.onOptionsItemSelected(item)
-            }
 }
