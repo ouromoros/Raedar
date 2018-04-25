@@ -44,12 +44,21 @@ class SourceActivity : AppCompatActivity(), SourceFragment.OnListFragmentInterac
     }
 
     override fun onListFragmentInteraction(item: Source) {
-        Maybe.fromCallable{getSourceDao(this)?.delete(item.name)}
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe{
-                    Toast.makeText(this, "Delete successful!", Toast.LENGTH_SHORT).show()
-                }
+        val adBuilder = AlertDialog.Builder(this)
+        val ad = adBuilder.setMessage("Are you sure you want to delete ${item.name}?")
+                .setTitle("Delete")
+                .setPositiveButton("Ok", {
+                    _, _ ->
+                    Maybe.fromCallable{getSourceDao(this)?.delete(item.name)}
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe{
+                                Toast.makeText(this, "Delete successful!", Toast.LENGTH_SHORT).show()
+                            }
+                })
+                .setNegativeButton("Cancel", {d,_-> d.cancel()})
+                .create()
+        ad.show()
     }
 
 }
