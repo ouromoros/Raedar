@@ -2,9 +2,16 @@ package deng.jitian.raeder
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
 import deng.jitian.raeder.database.Feed
+import deng.jitian.raeder.database.updateFeed
+import io.reactivex.Maybe
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_feed_detail.*
+import kotlinx.android.synthetic.main.feed_detail.*
 
 /**
  * An activity representing a single Feed detail screen. This
@@ -14,10 +21,11 @@ import kotlinx.android.synthetic.main.activity_feed_detail.*
  */
 class FeedDetailActivity : AppCompatActivity() {
 
+    lateinit var feed: Feed
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed_detail)
-        setSupportActionBar(detail_toolbar)
 
         // Show the Up button in the action bar.
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -36,9 +44,38 @@ class FeedDetailActivity : AppCompatActivity() {
             // using a fragment transaction.
             val fragment = FeedDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putParcelable(FeedDetailFragment.ARG_ITEM_ID,
-                            intent.getParcelableExtra<Feed>(FeedDetailFragment.ARG_ITEM_ID))
+                    feed = intent.getParcelableExtra<Feed>(FeedDetailFragment.ARG_ITEM_ID)
+                    putParcelable(FeedDetailFragment.ARG_ITEM_ID, feed)
+                    // Set button as Starred
+                    if(feed.starred){
+                        star_button.setImageResource(R.drawable.ic_star_black_24dp)
+                    }
                 }
+            }
+
+            if(!feed.read){
+                feed.read=true
+                Maybe.fromCallable{ updateFeed(this,feed)}
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe{
+                            Log.d("FeedDetail", "Marked ${feed.link} as read")
+                        }
+            }
+
+            star_button.setOnClickListener {
+                feed.starred = !feed.starred
+                Maybe.fromCallable{ updateFeed(this, feed)}
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
+                            Log.d("FeedDetail", "(Un)starred ${feed.link} success")
+                            if(feed.starred) {
+                                star_button.setImageResource(R.drawable.ic_star_black_24dp)
+                            }else{
+                                star_button.setImageResource(R.drawable.ic_star_border_black_24dp)
+                            }
+                        }
             }
 
             supportFragmentManager.beginTransaction()

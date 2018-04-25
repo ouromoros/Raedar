@@ -41,7 +41,7 @@ class FeedDetailFragment : Fragment() {
                     Log.e("FeedDetail", "get mItem failed!")
                     activity!!.onBackPressed()
                 }
-                activity?.detail_toolbar?.title = mItem!!.title
+                activity?.detail_toolbar?.text = mItem!!.title
                 // Set the feed as Read
                 if(!mItem!!.read) {
                     mItem!!.read = true
