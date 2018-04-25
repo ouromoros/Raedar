@@ -10,10 +10,12 @@ import android.view.ViewGroup
 import android.widget.*
 import deng.jitian.raeder.FeedListActivity
 import deng.jitian.raeder.R
+import deng.jitian.raeder.database.Feed
 import deng.jitian.raeder.database.FeedCount
 import deng.jitian.raeder.database.RSSDatabase
 import deng.jitian.raeder.database.getFeedsDao
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -50,14 +52,7 @@ abstract class ListFragment : Fragment() {
 
     inner class MyChildClickListener : ExpandableListView.OnChildClickListener {
         override fun onChildClick(parent: ExpandableListView?, v: View?, groupPosition: Int, childPosition: Int, id: Long): Boolean {
-            val feedsDao = getFeedsDao(activity!!)
-            if (feedsDao == null) {
-                Toast.makeText(activity, "Load database failed!", Toast.LENGTH_SHORT).show()
-                Log.e("Main", "getFeedsDao return null!")
-                return false
-            }
-            feedsDao
-                    .getFeedsIn(feeds[groupPosition][childPosition].first)
+            getFeedIn(feeds[groupPosition][childPosition].first)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
@@ -116,14 +111,8 @@ abstract class ListFragment : Fragment() {
             val tb = cview.findViewById<ImageButton>(R.id.tagButton)
             tb.isFocusable = false
             tb.setOnClickListener {
-                val feedsDao = getFeedsDao(activity!!)
-                if (feedsDao == null) {
-                    Toast.makeText(activity, "Load database failed!", Toast.LENGTH_SHORT).show()
-                    Log.e("Main", "getFeedsDao return null!")
-                    // Cause it's a inline lambda, we have to use qualified return here
-                    return@setOnClickListener
-                }
-                feedsDao.getFeedsInTag(tag)
+                // Use the abstract function here
+                getFeedInTag(tag)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe {
@@ -149,6 +138,10 @@ abstract class ListFragment : Fragment() {
     }
 
     abstract fun getList(): Flowable<List<FeedCount>>
+
+    abstract fun getFeedInTag(tag: String): Maybe<List<Feed>>
+
+    abstract fun getFeedIn(s: String): Maybe<List<Feed>>
 
     private fun extractList(data: List<FeedCount>):
             Pair<List<List<Pair<String, Int>>>, List<String>> {

@@ -5,6 +5,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import android.arch.persistence.room.OnConflictStrategy.IGNORE
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 
 @Parcelize
 @Entity(tableName = "FeedsData")
@@ -39,11 +40,11 @@ interface FeedsDao {
     fun getStarredCounts(): Flowable<List<FeedCount>>
 
     @Query("SELECT * FROM FeedsData WHERE sourceName = :source")
-    fun getFeedsIn(source: String): Flowable<List<Feed>>
+    fun getFeedsIn(source: String): Maybe<List<Feed>>
 
     @Query("SELECT * FROM FeedsData WHERE sourceName IN" +
             "(SELECT name FROM SourceData WHERE tag = :tag)")
-    fun getFeedsInTag(tag: String): Flowable<List<Feed>>
+    fun getFeedsInTag(tag: String): Maybe<List<Feed>>
 
     @Insert(onConflict = IGNORE)
     fun insertFeed(feed: Feed)
