@@ -2,19 +2,13 @@ package deng.jitian.raeder
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.text.InputType
-import android.util.Log
-import android.widget.EditText
 import android.widget.Toast
 import deng.jitian.raeder.database.Source
 import deng.jitian.raeder.database.getSourceDao
-import deng.jitian.raeder.network.getFeeds
 import deng.jitian.raeder.sourcelist.SourceFragment
 import io.reactivex.Maybe
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -28,7 +22,7 @@ class SourceActivity : AppCompatActivity(), SourceFragment.OnListFragmentInterac
         setContentView(R.layout.activity_manage_source)
         setSupportActionBar(toolbar)
         fab.setOnClickListener{
-            startActivity(Intent(this, AddSource::class.java))
+            startActivity(Intent(this, AddSourceActivity::class.java))
         }
 
     }

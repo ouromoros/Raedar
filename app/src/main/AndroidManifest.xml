@@ -39,7 +39,7 @@
                 android:value="deng.jitian.raeder.FeedListActivity" />
         </activity>
         <activity
-            android:name=".AddSource"
+            android:name=".AddSourceActivity"
             android:label="@string/title_activity_add_source"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

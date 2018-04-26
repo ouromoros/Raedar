@@ -39,11 +39,12 @@ interface FeedsDao {
             " WHERE f.starred = 1 and f.sourceName = s.name GROUP BY f.sourceName")
     fun getStarredCounts(): Flowable<List<FeedCount>>
 
-    @Query("SELECT * FROM FeedsData WHERE sourceName = :source")
+    @Query("SELECT * FROM FeedsData WHERE sourceName = :source ORDER BY pubDate DESC")
     fun getFeedsIn(source: String): Maybe<List<Feed>>
 
     @Query("SELECT * FROM FeedsData WHERE sourceName IN" +
-            "(SELECT name FROM SourceData WHERE tag = :tag)")
+            "(SELECT name FROM SourceData WHERE tag = :tag)" +
+            "ORDER BY pubDate DESC")
     fun getFeedsInTag(tag: String): Maybe<List<Feed>>
 
     @Insert(onConflict = IGNORE)

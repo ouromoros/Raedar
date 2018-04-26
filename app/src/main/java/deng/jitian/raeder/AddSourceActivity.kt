@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_add_source.*
 import kotlinx.android.synthetic.main.content_add_source.*
 
-class AddSource : AppCompatActivity() {
+class AddSourceActivity : AppCompatActivity() {
 
     private lateinit var menu: Menu
     override fun onCreate(savedInstanceState: Bundle?) {
