@@ -11,23 +11,26 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginTop="10sp"
+        android:layout_height="50sp"
         android:layout_marginStart="20sp"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="10sp"
+        android:orientation="horizontal">
+
         <TextView
-            android:layout_width="wrap_content"
             android:id="@+id/detail_toolbar"
-            android:textSize="30sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_height="wrap_content" />
-        <ImageButton
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <ImageButton
             android:id="@+id/star_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:contentDescription="star"
-            app:layout_constraintRight_toRightOf="parent"
             android:src="@drawable/ic_star_border_black_24dp"
-            android:layout_height="wrap_content" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 

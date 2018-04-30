@@ -41,7 +41,7 @@
         <activity
             android:name=".AddSourceActivity"
             android:label="@string/title_activity_add_source"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

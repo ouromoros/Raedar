@@ -1,33 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="horizontal"
-    android:layout_height="50dp">
+    android:layout_height="50dp"
+    android:orientation="horizontal">
 
 
     <TextView
         android:id="@+id/tagName"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginStart="48dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="40sp"
+        android:layout_marginTop="8dp"
         android:foregroundGravity="center_vertical"
         android:gravity="center_vertical"
         android:text="456465"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/colorAccent"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tagButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:layout_goneMarginStart="80sp" />
+
     <ImageButton
+        android:id="@+id/tagButton"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/tagButton"
-        app:layout_constraintRight_toRightOf="parent"
-        android:src="@drawable/ic_subject_black_24dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
         android:foregroundGravity="center_vertical"
-        android:layout_marginEnd="20sp"
-        />
+        android:src="@drawable/ic_subject_black_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tagName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tagName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
