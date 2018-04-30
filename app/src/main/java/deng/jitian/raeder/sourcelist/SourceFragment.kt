@@ -8,9 +8,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import deng.jitian.raeder.R
+import deng.jitian.raeder.SourceActivity
 import deng.jitian.raeder.database.Source
 import deng.jitian.raeder.database.getSourceDao
 
@@ -45,27 +47,16 @@ class SourceFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_source_list, container, false)
-        val dao = getSourceDao(activity!!)
-        if (dao == null) {
-            Log.e("Source", "getSourceDao returns null!")
-            return view
-        }
-        dao.getAll()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    sources = it
-                    val recyclerView = view as RecyclerView
-                    if (mColumnCount <= 1) {
-                        recyclerView.layoutManager = LinearLayoutManager(context)
-                    } else {
-                        recyclerView.layoutManager = GridLayoutManager(context, mColumnCount)
-                    }
-                    recyclerView.adapter = MySourceRecyclerViewAdapter(sources, mListener)
-                }
+            sources = arguments!!.getParcelableArray(SOURCE_KEY).asList().map{ it as Source}
+            val recyclerView = view as RecyclerView
+            if (mColumnCount <= 1) {
+                recyclerView.layoutManager = LinearLayoutManager(context)
+            } else {
+                recyclerView.layoutManager = GridLayoutManager(context, mColumnCount)
+            }
+            recyclerView.adapter = MySourceRecyclerViewAdapter(sources, mListener)
         return view
     }
-
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -96,14 +87,16 @@ class SourceFragment : Fragment() {
 
     companion object {
 
+        public val SOURCE_KEY = "deng.jitian.source.key"
         // TODO: Customize parameter argument names
         private val ARG_COLUMN_COUNT = "column-count"
 
         // TODO: Customize parameter initialization
-        fun newInstance(columnCount: Int): SourceFragment {
+        fun newInstance(columnCount: Int, sources: List<Source>): SourceFragment {
             val fragment = SourceFragment()
             val args = Bundle()
             args.putInt(ARG_COLUMN_COUNT, columnCount)
+            args.putParcelableArray(SOURCE_KEY, sources.toTypedArray())
             fragment.arguments = args
             return fragment
         }

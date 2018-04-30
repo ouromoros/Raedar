@@ -11,6 +11,6 @@
         android:id="@+id/source_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="deng.jitian.raeder.sourcelist.SourceFragment"/>
+        />
 
 </android.support.constraint.ConstraintLayout>
