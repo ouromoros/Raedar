@@ -88,6 +88,7 @@ class SourceActivity : AppCompatActivity(), SourceFragment.OnListFragmentInterac
                 val c = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val s = sourceToString(sources)
                 c.text = s
+                Toast.makeText(this, "Export Successfully", Toast.LENGTH_LONG).show()
             }
             else -> return super.onOptionsItemSelected(item)
         }
