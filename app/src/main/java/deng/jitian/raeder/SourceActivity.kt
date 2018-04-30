@@ -34,6 +34,11 @@ class SourceActivity : AppCompatActivity(), SourceFragment.OnListFragmentInterac
         fab.setOnClickListener{
             startActivity(Intent(this, AddSourceActivity::class.java))
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Refresh Source List
         val dao = getSourceDao(this)
         if (dao == null) {
             Log.e("Source", "getSourceDao returns null!")
@@ -50,16 +55,6 @@ class SourceActivity : AppCompatActivity(), SourceFragment.OnListFragmentInterac
                         commit()
                     }
                 }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // Refresh Source List
-        supportFragmentManager.beginTransaction().apply {
-            detach(source_list)
-            attach(source_list)
-            commit()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
