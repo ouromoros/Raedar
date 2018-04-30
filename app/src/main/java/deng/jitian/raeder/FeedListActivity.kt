@@ -1,6 +1,8 @@
 package deng.jitian.raeder
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v7.app.AppCompatActivity
@@ -62,6 +64,8 @@ class FeedListActivity : AppCompatActivity() {
         init {
             mOnClickListener = View.OnClickListener { v ->
                 val item = v.tag as Feed
+                v.id_text.setTextColor(Color.GRAY)
+                v.content.setTextColor(Color.GRAY)
                 if (mTwoPane) {
                     val fragment = FeedDetailFragment().apply {
                         arguments = Bundle().apply {
