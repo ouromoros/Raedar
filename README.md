@@ -1,5 +1,7 @@
 # Raedar 文档
 
+[TOC]
+
 ## 简介
 
 Raedar是一个轻量级的安卓端*[RSS](https://baike.baidu.com/item/rss/24470?fr=aladdin)*阅读软件，旨在给用户提供一个能自定义和管理消息来源的阅读体验。*RSS*(Really Simple Syndication)是一种基于*XML*的被各大网站广泛采用的内容包装和投递协议，提供了一种简单的描述和同步网站内容的方法。
