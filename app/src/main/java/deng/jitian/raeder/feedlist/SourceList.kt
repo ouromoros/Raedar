@@ -98,7 +98,7 @@ abstract class ListFragment : Fragment() {
         }
 
         override fun getChildrenCount(groupPosition: Int): Int {
-            return feeds.sumBy { it.size }
+            return feeds[groupPosition].size
         }
 
         override fun getGroupView(groupPosition: Int, isExpanded: Boolean, convertView: View?, parent: ViewGroup?): View {

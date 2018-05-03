@@ -93,7 +93,7 @@ class FeedListActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = mValues[position]
-            holder.mIdView.text = item.link
+            holder.mIdView.text = (position + 1).toString()
             holder.mContentView.text = item.title
 
             with(holder.itemView) {
