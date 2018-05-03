@@ -103,6 +103,16 @@ Raedar中用户可以自定义订阅的RSS源，并且收藏与标记其认为�
 - 目前源在添加之后没有办法方便地改变其所属的Category、URL等信息，只能重新添加将其覆盖，这个功能也许会有用，所以还可以再做改进。
 - 添加*Atom*格式支持。
 
+## 实际效果截图
+
+![主界面](Scrrenshots/Screenshot_20180503-093222.jpg)
+
+![管理源界面](Scrrenshots/Screenshot_20180503-093250.jpg)
+
+![Feed详细界面](Scrrenshots/Screenshot_20180503-093233.jpg)
+
+![Feed列表界面](Scrrenshots/Screenshot_20180503-093227.jpg)
+
 ## 更多
 
 本项目使用git管理，在Github上开源，代码地址在[这里](https://github.com/ouromoros/Raedar.git)。
