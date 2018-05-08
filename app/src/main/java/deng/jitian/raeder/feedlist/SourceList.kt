@@ -3,26 +3,25 @@ package deng.jitian.raeder.feedlist
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.BaseExpandableListAdapter
+import android.widget.ExpandableListView
+import android.widget.ImageButton
+import android.widget.TextView
 import deng.jitian.raeder.FeedListActivity
 import deng.jitian.raeder.R
 import deng.jitian.raeder.database.Feed
 import deng.jitian.raeder.database.FeedCount
 import deng.jitian.raeder.database.RSSDatabase
-import deng.jitian.raeder.database.getFeedsDao
 import io.reactivex.Flowable
 import io.reactivex.Maybe
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.concurrent.thread
 
 abstract class ListFragment : Fragment() {
     private lateinit var feeds: List<List<Pair<String, Int>>>
@@ -38,7 +37,7 @@ abstract class ListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_list, null)
-        getList().map{extractList(it)}
+        getList().map { extractList(it) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {

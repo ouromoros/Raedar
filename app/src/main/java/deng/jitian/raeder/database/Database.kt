@@ -5,10 +5,11 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 
-@Database(entities = [Feed::class,Source::class], version = 1, exportSchema = false)
-abstract class RSSDatabase: RoomDatabase(){
+@Database(entities = [Feed::class, Source::class], version = 1, exportSchema = false)
+abstract class RSSDatabase : RoomDatabase() {
     abstract fun feedsDao(): FeedsDao
     abstract fun sourceDao(): SourceDao
+
     companion object {
         private var INSTANCE: RSSDatabase? = null
 

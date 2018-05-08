@@ -1,13 +1,12 @@
 package deng.jitian.raeder
 
 import android.content.Intent
+import android.os.Bundle
 import android.support.design.widget.TabLayout
-import android.support.v7.app.AppCompatActivity
-
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -19,11 +18,9 @@ import deng.jitian.raeder.feedlist.NewListFragment
 import deng.jitian.raeder.feedlist.OldListFragment
 import deng.jitian.raeder.feedlist.StarredListFragment
 import deng.jitian.raeder.network.getFeeds
-import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -71,7 +68,7 @@ class MainActivity : AppCompatActivity() {
                     it.map {
                         Maybe.fromCallable {
                             val feeds = getFeeds(it.link)
-                            if(feeds == null){
+                            if (feeds == null) {
                                 Log.e("Main", "Getting feeds in ${it.name} failed")
                                 return@fromCallable
                             }

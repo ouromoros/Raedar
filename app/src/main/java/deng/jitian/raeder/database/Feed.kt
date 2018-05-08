@@ -1,11 +1,11 @@
 package deng.jitian.raeder.database
 
 import android.arch.persistence.room.*
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 import android.arch.persistence.room.OnConflictStrategy.IGNORE
+import android.os.Parcelable
 import io.reactivex.Flowable
 import io.reactivex.Maybe
+import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity(tableName = "FeedsData")
@@ -15,9 +15,9 @@ data class Feed(@ColumnInfo(name = "title") var title: String,
                 @ColumnInfo(name = "starred") var starred: Boolean,
                 @ColumnInfo(name = "read") var read: Boolean,
                 @ColumnInfo(name = "pubDate") var pubDate: String,
-                @ColumnInfo(name = "description") var description: String): Parcelable {
+                @ColumnInfo(name = "description") var description: String) : Parcelable {
     @Ignore
-    constructor() : this( "", "", "",
+    constructor() : this("", "", "",
             false, false, "", "")
 }
 

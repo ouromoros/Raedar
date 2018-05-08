@@ -43,7 +43,7 @@ class FeedDetailFragment : Fragment() {
                 }
                 activity?.detail_toolbar?.text = mItem!!.title
                 // Set the feed as Read
-                if(!mItem!!.read) {
+                if (!mItem!!.read) {
                     mItem!!.read = true
                     Maybe.fromCallable { updateFeed(activity!!, mItem!!) }
                             .subscribeOn(Schedulers.io())
@@ -90,7 +90,8 @@ class FeedDetailFragment : Fragment() {
          * represents.
          */
         const val ARG_ITEM_ID = "item_id"
-        fun beautify(content: String): String{
+
+        fun beautify(content: String): String {
             return "<head> <style type=\"text/css\"> body{font-size: 30px; margin: 10%; } </style> </head> <body> $content </body>"
         }
     }

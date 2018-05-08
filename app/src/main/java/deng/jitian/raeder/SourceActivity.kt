@@ -19,9 +19,7 @@ import deng.jitian.raeder.sourcelist.SourceFragment
 import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-
 import kotlinx.android.synthetic.main.activity_manage_source.*
-import kotlinx.android.synthetic.main.content_manage_source.*
 
 class SourceActivity : AppCompatActivity(), SourceFragment.OnListFragmentInteractionListener {
 
@@ -31,7 +29,7 @@ class SourceActivity : AppCompatActivity(), SourceFragment.OnListFragmentInterac
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_source)
         setSupportActionBar(toolbar)
-        fab.setOnClickListener{
+        fab.setOnClickListener {
             startActivity(Intent(this, AddSourceActivity::class.java))
         }
         val dao = getSourceDao(this)
@@ -42,7 +40,7 @@ class SourceActivity : AppCompatActivity(), SourceFragment.OnListFragmentInterac
         dao.getAll()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe{
+                .subscribe {
                     sources = it
                     val f = SourceFragment.newInstance(1, sources)
                     supportFragmentManager.beginTransaction().apply {
@@ -82,20 +80,20 @@ class SourceActivity : AppCompatActivity(), SourceFragment.OnListFragmentInterac
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_import -> {
-                try{
+                try {
                     val c = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                     val s = c.text.toString()
                     val ss = stringToSource(s)
-                    for(i in 0 until ss.size){
+                    for (i in 0 until ss.size) {
                         Maybe.fromCallable { getFeeds(ss[i].link) }
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe{
+                                .subscribe {
                                     getSourceDao(applicationContext)!!.insert(
                                             Source(it.name, it.link, ss[i].cat))
                                 }
                     }
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     Toast.makeText(this, "Failed to import!", Toast.LENGTH_LONG).show()
                     Log.e("Source", e.toString())
                 }
@@ -115,16 +113,15 @@ class SourceActivity : AppCompatActivity(), SourceFragment.OnListFragmentInterac
         val adBuilder = AlertDialog.Builder(this)
         val ad = adBuilder.setMessage("Are you sure you want to delete ${item.name}?")
                 .setTitle("Delete")
-                .setPositiveButton("Ok", {
-                    _, _ ->
-                    Maybe.fromCallable{getSourceDao(this)?.delete(item.name)}
+                .setPositiveButton("Ok", { _, _ ->
+                    Maybe.fromCallable { getSourceDao(this)?.delete(item.name) }
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe{
+                            .subscribe {
                                 Toast.makeText(this, "Delete successful!", Toast.LENGTH_SHORT).show()
                             }
                 })
-                .setNegativeButton("Cancel", {d,_-> d.cancel()})
+                .setNegativeButton("Cancel", { d, _ -> d.cancel() })
                 .create()
         ad.show()
     }

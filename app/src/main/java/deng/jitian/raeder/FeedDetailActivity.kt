@@ -1,20 +1,14 @@
 package deng.jitian.raeder
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.AttributeSet
 import android.util.Log
-import android.view.MenuItem
-import android.view.View
 import deng.jitian.raeder.database.Feed
 import deng.jitian.raeder.database.updateFeed
 import io.reactivex.Maybe
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_feed_detail.*
-import kotlinx.android.synthetic.main.feed_detail.*
 
 /**
  * An activity representing a single Feed detail screen. This
@@ -50,30 +44,30 @@ class FeedDetailActivity : AppCompatActivity() {
             }
 
             // Set button as Starred
-            if(feed.starred){
+            if (feed.starred) {
                 star_button.setImageResource(R.drawable.ic_star_black_24dp)
             }
 
-            if(!feed.read){
-                feed.read=true
-                Maybe.fromCallable{ updateFeed(this,feed)}
+            if (!feed.read) {
+                feed.read = true
+                Maybe.fromCallable { updateFeed(this, feed) }
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe{
+                        .subscribe {
                             Log.d("FeedDetail", "Marked ${feed.link} as read")
                         }
             }
 
             star_button.setOnClickListener {
                 feed.starred = !feed.starred
-                Maybe.fromCallable{ updateFeed(this, feed)}
+                Maybe.fromCallable { updateFeed(this, feed) }
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe {
                             Log.d("FeedDetail", "(Un)starred ${feed.link} success")
-                            if(feed.starred) {
+                            if (feed.starred) {
                                 star_button.setImageResource(R.drawable.ic_star_black_24dp)
-                            }else{
+                            } else {
                                 star_button.setImageResource(R.drawable.ic_star_border_black_24dp)
                             }
                         }

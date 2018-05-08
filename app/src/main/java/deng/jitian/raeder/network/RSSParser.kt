@@ -3,11 +3,9 @@ package deng.jitian.raeder.network
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import org.xmlpull.v1.XmlPullParserFactory
-
 import java.io.IOException
 import java.io.StringReader
-import java.util.Date
-import java.util.Observable
+import java.util.*
 
 
 class XMLParser : Observable() {
@@ -36,30 +34,30 @@ class XMLParser : Observable() {
                         equals("item", ignoreCase = true) -> insideItem = true
                         insideItem -> {
                             when {
-                                equals("title",ignoreCase = true)->{
+                                equals("title", ignoreCase = true) -> {
                                     currentArticle.title = xmlPullParser.nextText()
                                 }
-                                equals("link",ignoreCase = true)->{
+                                equals("link", ignoreCase = true) -> {
                                     currentArticle.link = xmlPullParser.nextText()
                                 }
-                                equals("pubDate",ignoreCase = true)->{
+                                equals("pubDate", ignoreCase = true) -> {
                                     currentArticle.pubDate = xmlPullParser.nextText()
                                 }
-                                equals("description",ignoreCase = true)->{
+                                equals("description", ignoreCase = true) -> {
                                     currentArticle.description = xmlPullParser.nextText()
                                 }
                             }
                         }
-                        equals("title",ignoreCase = true)->{
+                        equals("title", ignoreCase = true) -> {
                             rss.name = xmlPullParser.nextText()
                         }
-                        equals("link",ignoreCase = true)->{
+                        equals("link", ignoreCase = true) -> {
                             rss.link = xmlPullParser.nextText()
                         }
                     }
                 }
-            }else if(eventType == XmlPullParser.END_TAG) {
-                if(xmlPullParser.name.equals("item",ignoreCase = true)) {
+            } else if (eventType == XmlPullParser.END_TAG) {
+                if (xmlPullParser.name.equals("item", ignoreCase = true)) {
                     insideItem = false
                     rss.articles.add(currentArticle)
                     currentArticle = Article()

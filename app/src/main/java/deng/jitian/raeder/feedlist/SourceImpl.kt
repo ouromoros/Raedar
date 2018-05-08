@@ -20,7 +20,7 @@ class NewListFragment : ListFragment() {
             Log.e("Main", "getFeedsDao return null!")
             return Maybe.just(listOf())
         }
-        return feedsDao.getFeedsIn(s).map{it.filter { f -> !f.read }}
+        return feedsDao.getFeedsIn(s).map { it.filter { f -> !f.read } }
     }
 
     override fun getFeedInTag(tag: String): Maybe<List<Feed>> {
@@ -30,7 +30,7 @@ class NewListFragment : ListFragment() {
             Log.e("Main", "getFeedsDao return null!")
             return Maybe.just(listOf())
         }
-        return feedsDao.getFeedsInTag(tag).map{it.filter { f -> !f.read }}
+        return feedsDao.getFeedsInTag(tag).map { it.filter { f -> !f.read } }
     }
 }
 
@@ -46,7 +46,7 @@ class OldListFragment : ListFragment() {
             Log.e("Main", "getFeedsDao return null!")
             return Maybe.just(listOf())
         }
-        return feedsDao.getFeedsIn(s).map{it.filter { f -> f.read }}
+        return feedsDao.getFeedsIn(s).map { it.filter { f -> f.read } }
     }
 
     override fun getFeedInTag(tag: String): Maybe<List<Feed>> {
@@ -56,7 +56,7 @@ class OldListFragment : ListFragment() {
             Log.e("Main", "getFeedsDao return null!")
             return Maybe.just(listOf())
         }
-        return feedsDao.getFeedsInTag(tag).map{it.filter { f -> f.read }}
+        return feedsDao.getFeedsInTag(tag).map { it.filter { f -> f.read } }
     }
 }
 
@@ -72,7 +72,7 @@ class StarredListFragment : ListFragment() {
             Log.e("Main", "getFeedsDao return null!")
             return Maybe.just(listOf())
         }
-        return feedsDao.getFeedsIn(s).map{it.filter { f -> f.starred }}
+        return feedsDao.getFeedsIn(s).map { it.filter { f -> f.starred } }
     }
 
     override fun getFeedInTag(tag: String): Maybe<List<Feed>> {
@@ -82,6 +82,6 @@ class StarredListFragment : ListFragment() {
             Log.e("Main", "getFeedsDao return null!")
             return Maybe.just(listOf())
         }
-        return feedsDao.getFeedsInTag(tag).map{it.filter { f -> f.starred }}
+        return feedsDao.getFeedsInTag(tag).map { it.filter { f -> f.starred } }
     }
 }

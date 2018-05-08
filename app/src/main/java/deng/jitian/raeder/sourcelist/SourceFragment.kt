@@ -6,19 +6,11 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import deng.jitian.raeder.R
-import deng.jitian.raeder.SourceActivity
 import deng.jitian.raeder.database.Source
-import deng.jitian.raeder.database.getSourceDao
-
-import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 /**
  * A fragment representing a list of Items.
@@ -47,14 +39,14 @@ class SourceFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_source_list, container, false)
-            sources = arguments!!.getParcelableArray(SOURCE_KEY).asList().map{ it as Source}
-            val recyclerView = view as RecyclerView
-            if (mColumnCount <= 1) {
-                recyclerView.layoutManager = LinearLayoutManager(context)
-            } else {
-                recyclerView.layoutManager = GridLayoutManager(context, mColumnCount)
-            }
-            recyclerView.adapter = MySourceRecyclerViewAdapter(sources, mListener)
+        sources = arguments!!.getParcelableArray(SOURCE_KEY).asList().map { it as Source }
+        val recyclerView = view as RecyclerView
+        if (mColumnCount <= 1) {
+            recyclerView.layoutManager = LinearLayoutManager(context)
+        } else {
+            recyclerView.layoutManager = GridLayoutManager(context, mColumnCount)
+        }
+        recyclerView.adapter = MySourceRecyclerViewAdapter(sources, mListener)
         return view
     }
 

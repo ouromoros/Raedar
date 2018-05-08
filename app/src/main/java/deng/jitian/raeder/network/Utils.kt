@@ -10,7 +10,7 @@ fun getFeeds(s: String): RSS? {
     var source = s
     // Check if prefixed with protocol
     // Try to use http if not found
-    if(!(source.startsWith("http://")||source.startsWith("https://"))){
+    if (!(source.startsWith("http://") || source.startsWith("https://"))) {
         source = "http://$s"
     }
     Log.d("http", "getting $source")

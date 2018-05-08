@@ -1,7 +1,6 @@
 package deng.jitian.raeder.database
 
 import android.arch.persistence.room.*
-import android.arch.persistence.room.OnConflictStrategy.IGNORE
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.os.Parcelable
 import io.reactivex.Flowable
@@ -11,7 +10,7 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "SourceData")
 data class Source(@PrimaryKey @ColumnInfo(name = "name") var name: String,
                   @ColumnInfo(name = "link") var link: String,
-                  @ColumnInfo(name = "tag") var tag: String ): Parcelable
+                  @ColumnInfo(name = "tag") var tag: String) : Parcelable
 
 @Dao
 interface SourceDao {

@@ -1,7 +1,6 @@
 package deng.jitian.raeder
 
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Parcelable
@@ -11,12 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
 import deng.jitian.raeder.database.Feed
 import kotlinx.android.synthetic.main.activity_feed_list.*
-import kotlinx.android.synthetic.main.feed_list_content.view.*
-
 import kotlinx.android.synthetic.main.feed_list.*
+import kotlinx.android.synthetic.main.feed_list_content.view.*
 
 /**
  * An activity representing a list of Pings. This activity
@@ -38,7 +35,7 @@ class FeedListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed_list)
-        feeds = intent.getParcelableArrayExtra("data").asList().map{ it as Feed }
+        feeds = intent.getParcelableArrayExtra("data").asList().map { it as Feed }
 
         setSupportActionBar(toolbar)
         toolbar.title = title
