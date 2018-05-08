@@ -34,9 +34,25 @@ class SourceActivity : AppCompatActivity(), SourceFragment.OnListFragmentInterac
         fab.setOnClickListener{
             startActivity(Intent(this, AddSourceActivity::class.java))
         }
+        val dao = getSourceDao(this)
+        if (dao == null) {
+            Log.e("Source", "getSourceDao returns null!")
+            return
+        }
+        dao.getAll()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe{
+                    sources = it
+                    val f = SourceFragment.newInstance(1, sources)
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.source_list, f)
+                        commit()
+                    }
+                }
     }
 
-    override fun onResume() {
+/*    override fun onResume() {
         super.onResume()
         // Refresh Source List
         val dao = getSourceDao(this)
@@ -55,7 +71,7 @@ class SourceActivity : AppCompatActivity(), SourceFragment.OnListFragmentInterac
                         commit()
                     }
                 }
-    }
+    }*/
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -51,7 +51,10 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         // If haven't refreshed this time
         // try to refresh database
-        if (!autoRefreshed) refresh()
+        if (!autoRefreshed) {
+            autoRefreshed = true
+            refresh()
+        }
     }
 
     private fun refresh() {
@@ -66,24 +69,27 @@ class MainActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .map {
                     it.map {
-                        val feeds = getFeeds(it.link)
-                        val items = feeds!!.articles
-                        for (item in items) {
-                            val newFeed = Feed()
-                            newFeed.description = item.description
-                            newFeed.title = item.title
-                            newFeed.pubDate = item.pubDate
-                            newFeed.sourceName = it.name
-                            newFeed.link = item.link
-                            getFeedsDao(applicationContext)?.insertFeed(newFeed)
-                        }
+                        Maybe.fromCallable {
+                            val feeds = getFeeds(it.link)
+                            if(feeds == null){
+                                Log.e("Main", "Getting feeds in ${it.name} failed")
+                                return@fromCallable
+                            }
+                            val items = feeds.articles
+                            for (item in items) {
+                                val newFeed = Feed()
+                                newFeed.description = item.description
+                                newFeed.title = item.title
+                                newFeed.pubDate = item.pubDate
+                                newFeed.sourceName = it.name
+                                newFeed.link = item.link
+                                getFeedsDao(applicationContext)?.insertFeed(newFeed)
+                            }
+                        }.subscribeOn(Schedulers.io()).subscribe()
                     }
                 }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    reload()
-                    autoRefreshed = true;
-                }
+                .subscribe()
     }
 
     private fun reload() {

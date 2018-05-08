@@ -77,9 +77,6 @@ class SourceFragment : Fragment() {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html) for more information.
      */
     interface OnListFragmentInteractionListener {
         fun onListFragmentInteraction(item: Source)
@@ -88,10 +85,8 @@ class SourceFragment : Fragment() {
     companion object {
 
         public val SOURCE_KEY = "deng.jitian.source.key"
-        // TODO: Customize parameter argument names
         private val ARG_COLUMN_COUNT = "column-count"
 
-        // TODO: Customize parameter initialization
         fun newInstance(columnCount: Int, sources: List<Source>): SourceFragment {
             val fragment = SourceFragment()
             val args = Bundle()

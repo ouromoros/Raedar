@@ -34,7 +34,7 @@ class MySourceRecyclerViewAdapter(private val mValues: List<Source>, private val
         return mValues.size
     }
 
-    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
+    inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
         val mIdView: TextView = mView.idView
         val mContentView: TextView = mView.content
         val mDeleteButton: Button = mView.deleteButton

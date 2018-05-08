@@ -73,7 +73,7 @@ class FeedDetailFragment : Fragment() {
             rootView.feedContent.apply {
                 settings.domStorageEnabled = true
                 // Found this on the internet, prevents bad encoding
-                loadData(it.description, "text/html; charset=UTF-8", null);
+                loadData(beautify(it.description), "text/html; charset=UTF-8", null);
                 // Disable scrolling/zooming
                 settings.loadWithOverviewMode = true
                 settings.useWideViewPort = true
@@ -83,11 +83,15 @@ class FeedDetailFragment : Fragment() {
         return rootView
     }
 
+
     companion object {
         /**
          * The fragment argument representing the item ID that this fragment
          * represents.
          */
         const val ARG_ITEM_ID = "item_id"
+        fun beautify(content: String): String{
+            return "<head> <style type=\"text/css\"> body{font-size: 30px; margin: 10%; } </style> </head> <body> $content </body>"
+        }
     }
 }

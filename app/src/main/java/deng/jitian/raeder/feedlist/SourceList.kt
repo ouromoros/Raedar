@@ -21,6 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
 
 abstract class ListFragment : Fragment() {
