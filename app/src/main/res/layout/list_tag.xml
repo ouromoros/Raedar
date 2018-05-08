@@ -9,13 +9,15 @@
 
     <TextView
         android:id="@+id/tagName"
-        android:layout_width="wrap_content"
+        android:layout_width="296dp"
         android:layout_height="match_parent"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="40sp"
         android:layout_marginTop="8dp"
+        android:ellipsize="end"
         android:foregroundGravity="center_vertical"
         android:gravity="center_vertical"
+        android:singleLine="true"
         android:text="456465"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/colorAccent"
