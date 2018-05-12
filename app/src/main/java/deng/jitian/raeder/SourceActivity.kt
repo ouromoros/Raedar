@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import deng.jitian.raeder.backup.sourceToString
 import deng.jitian.raeder.backup.stringToSource
 import deng.jitian.raeder.database.Source
@@ -21,7 +22,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_manage_source.*
 
-class SourceActivity : AppCompatActivity(), SourceFragment.OnListFragmentInteractionListener {
+class SourceActivity : RxAppCompatActivity(), SourceFragment.OnListFragmentInteractionListener {
 
     public lateinit var sources: List<Source>
 
@@ -40,6 +41,7 @@ class SourceActivity : AppCompatActivity(), SourceFragment.OnListFragmentInterac
         dao.getAll()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(bindToLifecycle())
                 .subscribe {
                     sources = it
                     val f = SourceFragment.newInstance(1, sources)
@@ -88,7 +90,9 @@ class SourceActivity : AppCompatActivity(), SourceFragment.OnListFragmentInterac
                         Maybe.fromCallable { getFeeds(ss[i].link) }
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
+                                .compose(bindToLifecycle())
                                 .subscribe {
+                                    if(it==null) return@subscribe
                                     getSourceDao(applicationContext)!!.insert(
                                             Source(it.name, it.link, ss[i].cat))
                                 }
@@ -117,6 +121,7 @@ class SourceActivity : AppCompatActivity(), SourceFragment.OnListFragmentInterac
                     Maybe.fromCallable { getSourceDao(this)?.delete(item.name) }
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
+                            .compose(bindToLifecycle())
                             .subscribe {
                                 Toast.makeText(this, "Delete successful!", Toast.LENGTH_SHORT).show()
                             }

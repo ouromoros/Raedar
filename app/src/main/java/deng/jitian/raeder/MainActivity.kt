@@ -11,6 +11,8 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
+import com.trello.rxlifecycle2.components.support.RxFragment
 import deng.jitian.raeder.database.Feed
 import deng.jitian.raeder.database.getFeedsDao
 import deng.jitian.raeder.database.getSourceDao
@@ -23,7 +25,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : RxAppCompatActivity() {
 
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
     private var autoRefreshed = false
@@ -82,10 +84,11 @@ class MainActivity : AppCompatActivity() {
                                 newFeed.link = item.link
                                 getFeedsDao(applicationContext)?.insertFeed(newFeed)
                             }
-                        }.subscribeOn(Schedulers.io()).subscribe()
+                        } .subscribeOn(Schedulers.io()).compose(bindToLifecycle()).subscribe()
                     }
                 }
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(bindToLifecycle())
                 .subscribe()
     }
 
@@ -118,7 +121,7 @@ class MainActivity : AppCompatActivity() {
      */
     inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-        override fun getItem(position: Int): Fragment =
+        override fun getItem(position: Int): RxFragment =
                 when (position) {
                     0 -> NewListFragment()
                     1 -> OldListFragment()

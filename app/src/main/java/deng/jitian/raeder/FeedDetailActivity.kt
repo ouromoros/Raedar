@@ -1,8 +1,10 @@
 package deng.jitian.raeder
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import deng.jitian.raeder.database.Feed
 import deng.jitian.raeder.database.updateFeed
 import io.reactivex.Maybe
@@ -16,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_feed_detail.*
  * item details are presented side-by-side with a list of items
  * in a [FeedListActivity].
  */
-class FeedDetailActivity : AppCompatActivity() {
+class FeedDetailActivity : RxAppCompatActivity() {
 
     lateinit var feed: Feed
 
@@ -53,6 +55,7 @@ class FeedDetailActivity : AppCompatActivity() {
                 Maybe.fromCallable { updateFeed(this, feed) }
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
+                        .compose(bindToLifecycle())
                         .subscribe {
                             Log.d("FeedDetail", "Marked ${feed.link} as read")
                         }
@@ -63,6 +66,7 @@ class FeedDetailActivity : AppCompatActivity() {
                 Maybe.fromCallable { updateFeed(this, feed) }
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
+                        .compose(bindToLifecycle())
                         .subscribe {
                             Log.d("FeedDetail", "(Un)starred ${feed.link} success")
                             if (feed.starred) {
@@ -74,7 +78,7 @@ class FeedDetailActivity : AppCompatActivity() {
             }
 
             supportFragmentManager.beginTransaction()
-                    .add(R.id.feed_detail_container, fragment)
+                    .add(R.id.feed_detail_container, fragment )
                     .commit()
         }
     }

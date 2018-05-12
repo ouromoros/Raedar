@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import deng.jitian.raeder.database.Source
 import deng.jitian.raeder.database.getSourceDao
 import deng.jitian.raeder.network.getFeeds
@@ -19,7 +20,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_add_source.*
 import kotlinx.android.synthetic.main.content_add_source.*
 
-class AddSourceActivity : AppCompatActivity() {
+class AddSourceActivity : RxAppCompatActivity() {
 
     private lateinit var menu: Menu
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +28,7 @@ class AddSourceActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_source)
         setSupportActionBar(toolbar)
         // Allow auto complete
-        getSourceDao(this)?.getTags()?.subscribe {
+        getSourceDao(this)?.getTags()?.compose(bindToLifecycle())?.subscribe {
             category_text.setAdapter(ArrayAdapter<String>(
                     this, android.R.layout.simple_list_item_1, it))
         }
@@ -55,6 +56,7 @@ class AddSourceActivity : AppCompatActivity() {
                                     Source(it.name, it.link, cat))
                         }
                         .observeOn(AndroidSchedulers.mainThread())
+                        .compose(bindToLifecycle())
                         .subscribe({
                             Toast.makeText(this
                                     , "Add source succeed!"

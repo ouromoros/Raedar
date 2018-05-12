@@ -2,7 +2,6 @@ package deng.jitian.raeder.feedlist
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import android.widget.BaseExpandableListAdapter
 import android.widget.ExpandableListView
 import android.widget.ImageButton
 import android.widget.TextView
+import com.trello.rxlifecycle2.components.support.RxFragment
 import deng.jitian.raeder.FeedListActivity
 import deng.jitian.raeder.R
 import deng.jitian.raeder.database.Feed
@@ -23,12 +23,12 @@ import kotlinx.android.synthetic.main.list_item.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-abstract class ListFragment : Fragment() {
+abstract class ListFragment : RxFragment() {
     private lateinit var feeds: List<List<Pair<String, Int>>>
     private lateinit var tags: List<String>
     private lateinit var rootView: View
     val mdb: RSSDatabase? by lazy {
-        RSSDatabase.getInstance(context!!)
+        RSSDatabase.getInstance(activity!!)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +40,7 @@ abstract class ListFragment : Fragment() {
         getList().map { extractList(it) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(bindToLifecycle())
                 .subscribe {
                     feeds = it.first
                     tags = it.second
@@ -55,8 +56,9 @@ abstract class ListFragment : Fragment() {
             getFeedIn(feeds[groupPosition][childPosition].first)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .compose(bindToLifecycle())
                     .subscribe {
-                        val intent = Intent(context, FeedListActivity::class.java)
+                        val intent = Intent(activity, FeedListActivity::class.java)
                         intent.putExtra("data", it.toTypedArray())
                         startActivity(intent)
                     }
@@ -115,8 +117,9 @@ abstract class ListFragment : Fragment() {
                 getFeedInTag(tag)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
+                        .compose(bindToLifecycle())
                         .subscribe {
-                            val intent = Intent(context, FeedListActivity::class.java)
+                            val intent = Intent(activity, FeedListActivity::class.java)
                             intent.putExtra("data", it.toTypedArray())
                             startActivity(intent)
                         }

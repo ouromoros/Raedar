@@ -3,11 +3,12 @@ package deng.jitian.raeder
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import com.trello.rxlifecycle2.components.support.RxFragment
 import deng.jitian.raeder.database.Feed
 import deng.jitian.raeder.database.updateFeed
 import io.reactivex.Maybe
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.feed_detail.view.*
  * in two-pane mode (on tablets) or a [FeedDetailActivity]
  * on handsets.
  */
-class FeedDetailFragment : Fragment() {
+class FeedDetailFragment : RxFragment() {
 
     /**
      * The feed that is passed
@@ -48,6 +49,7 @@ class FeedDetailFragment : Fragment() {
                     Maybe.fromCallable { updateFeed(activity!!, mItem!!) }
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
+                            .compose(bindToLifecycle())
                             .subscribe {
                                 Log.d("Feed", "Update success!")
                             }
