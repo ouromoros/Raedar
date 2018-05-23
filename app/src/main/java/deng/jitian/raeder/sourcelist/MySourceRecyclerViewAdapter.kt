@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import deng.jitian.raeder.R
-import deng.jitian.raeder.database.Source
+import deng.jitian.backend.database.Source
 
 import deng.jitian.raeder.sourcelist.SourceFragment.OnListFragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_source.view.*

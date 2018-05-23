@@ -1,12 +1,10 @@
 package deng.jitian.raeder
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
-import deng.jitian.raeder.database.Feed
-import deng.jitian.raeder.database.updateFeed
+import deng.jitian.backend.database.Feed
+import deng.jitian.backend.database.updateFeed
 import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

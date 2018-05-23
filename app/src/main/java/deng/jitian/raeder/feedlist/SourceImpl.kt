@@ -2,9 +2,9 @@ package deng.jitian.raeder.feedlist
 
 import android.util.Log
 import android.widget.Toast
-import deng.jitian.raeder.database.Feed
-import deng.jitian.raeder.database.FeedCount
-import deng.jitian.raeder.database.getFeedsDao
+import deng.jitian.backend.database.Feed
+import deng.jitian.backend.database.FeedCount
+import deng.jitian.backend.database.getFeedsDao
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 

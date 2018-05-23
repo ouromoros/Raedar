@@ -1,12 +1,12 @@
-package deng.jitian.raeder.network
+package deng.jitian.backend.network
 
 import android.util.Log
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 
-fun getAllfeeds(sources: List<String>): List<RSS?> = sources.map { getFeeds(it) }
+public fun getAllfeeds(sources: List<String>): List<RSS?> = sources.map { getFeeds(it) }
 
-fun getFeeds(s: String): RSS? {
+public fun getFeeds(s: String): RSS? {
     var source = s
     // Check if prefixed with protocol
     // Try to use http if not found

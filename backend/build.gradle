@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 apply plugin: 'kotlin-android'
 
@@ -14,20 +14,26 @@ androidExtensions {
 
 android {
     compileSdkVersion 27
+
+
+
     defaultConfig {
-        applicationId "deng.jitian.raeder"
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 repositories {
@@ -35,42 +41,45 @@ repositories {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
     // Room (use 1.1.0-beta1 for latest beta)
-    implementation 'android.arch.persistence.room:runtime:1.1.0-beta3'
+    implementation "android.arch.persistence.room:runtime:1.1.0-beta3"
     annotationProcessor "android.arch.persistence.room:compiler:1.1.0-beta3"
     // Test helpers for Room
-    testImplementation 'android.arch.persistence.room:testing:1.0.0'
+    testImplementation "android.arch.persistence.room:testing:1.0.0"
     testImplementation 'junit:junit:4.12'
     kapt "android.arch.persistence.room:compiler:1.1.0-beta3"
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     /// Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation "com.squareup.retrofit2:retrofit:2.3.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
     implementation 'com.squareup.retrofit2:converter-simplexml:2.3.0'
     // Rxjava
     implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
     implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
     // Fuel
     implementation 'com.github.kittinunf.fuel:fuel:1.12.1'
     implementation 'com.github.kittinunf.fuel:fuel-android:1.12.1'
     // RxJava support for Room
     implementation 'android.arch.persistence.room:rxjava2:1.1.0-beta3'
-    // Testing support
+// Testing support
     androidTestImplementation 'android.arch.core:core-testing:1.1.1'
+
     // Rxlifecycle
     implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
-    // If you want to bind to Android-specific lifecycles
+
+// If you want to bind to Android-specific lifecycles
     implementation 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
-    // If you want pre-written Activities and Fragments you can subclass as providers
+
+// If you want pre-written Activities and Fragments you can subclass as providers
     implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
-    implementation project(':backend')
+
 }

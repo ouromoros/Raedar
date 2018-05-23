@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import deng.jitian.raeder.database.Feed
+import deng.jitian.backend.database.Feed
 import kotlinx.android.synthetic.main.activity_feed_list.*
 import kotlinx.android.synthetic.main.feed_list.*
 import kotlinx.android.synthetic.main.feed_list_content.view.*

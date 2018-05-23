@@ -1,4 +1,4 @@
-package deng.jitian.raeder.database
+package deng.jitian.backend.database
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room

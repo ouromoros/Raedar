@@ -7,10 +7,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.trello.rxlifecycle2.components.support.RxFragment
-import deng.jitian.raeder.database.Feed
-import deng.jitian.raeder.database.updateFeed
+import deng.jitian.backend.database.Feed
+import deng.jitian.backend.database.updateFeed
 import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

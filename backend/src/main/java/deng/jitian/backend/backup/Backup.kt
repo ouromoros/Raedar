@@ -1,12 +1,12 @@
-package deng.jitian.raeder.backup
+package deng.jitian.backend.backup
 
-import deng.jitian.raeder.database.Source
+import deng.jitian.backend.database.Source
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 
 val MAGIC = "imamagicnumber"
-fun sourceToString(s: List<Source>): String {
+public fun sourceToString(s: List<Source>): String {
     val o = JSONObject()
     val ss = JSONArray()
     val cs = JSONArray()
@@ -20,7 +20,7 @@ fun sourceToString(s: List<Source>): String {
     return o.toString()
 }
 
-fun stringToSource(s: String): List<SourceBak> {
+public fun stringToSource(s: String): List<SourceBak> {
     val o = JSONObject(s)
     if (o.getString("magic") != MAGIC)
         throw IllegalArgumentException("Magic Number Incorrect!")

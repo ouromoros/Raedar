@@ -1,4 +1,4 @@
-package deng.jitian.raeder.database
+package deng.jitian.backend.database
 
 import android.arch.persistence.room.*
 import android.arch.persistence.room.OnConflictStrategy.IGNORE

@@ -12,9 +12,9 @@ import android.widget.TextView
 import com.trello.rxlifecycle2.components.support.RxFragment
 import deng.jitian.raeder.FeedListActivity
 import deng.jitian.raeder.R
-import deng.jitian.raeder.database.Feed
-import deng.jitian.raeder.database.FeedCount
-import deng.jitian.raeder.database.RSSDatabase
+import deng.jitian.backend.database.Feed
+import deng.jitian.backend.database.FeedCount
+import deng.jitian.backend.database.RSSDatabase
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
