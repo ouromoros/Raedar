@@ -16,7 +16,7 @@ public fun getFeeds(s: String): RSS? {
     Log.d("http", "getting $source")
     val (_, _, result) = source.httpGet().responseString()
     return when (result) {
-        is Result.Failure -> null
+        is Result.Failure -> throw IllegalAccessException("Bad url address: $source")
         is Result.Success -> {
             val parser = XMLParser()
             parser.parseXML(result.value)
